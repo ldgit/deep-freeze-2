@@ -5,6 +5,10 @@ module.exports = function deepFreeze(object) {
 
   Object.freeze(object);
   Object.getOwnPropertyNames(object).forEach((propName) => {
+    if (typeof object[propName] === 'function' && propName === 'constructor') {
+      return;
+    }
+
     deepFreeze(object[propName]);
   });
 

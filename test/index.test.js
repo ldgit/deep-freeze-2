@@ -1,6 +1,4 @@
-'use strict';
-
-const deepFreeze = require('../index');
+import deepFreeze from '../index';
 
 describe('deepFreeze', () => {
   it('should do nothing when given non object', () => {
@@ -33,7 +31,7 @@ describe('deepFreeze', () => {
   });
 
   it('should freeze objects one level deep', () => {
-    const anObject = { 
+    const anObject = {
       levelOne: { existingProp: 'just some prop' },
     };
 
@@ -58,10 +56,10 @@ describe('deepFreeze', () => {
 
   it('should freeze objects three levels deep', () => {
     const anObject = {
-      levelOne: { 
-        levelTwo: { 
-          levelThree: { existingProp: 'just some prop' } 
-        }, 
+      levelOne: {
+        levelTwo: {
+          levelThree: { existingProp: 'just some prop' },
+        },
       },
     };
 
@@ -79,7 +77,7 @@ describe('deepFreeze', () => {
         [
           [4, 5],
         ],
-      ]
+      ],
     ];
 
     deepFreeze(anArray);
@@ -133,16 +131,43 @@ describe('deepFreeze', () => {
   it('should return the frozen object', () => {
     expect(deepFreeze({ a: 'b' })).toEqual({ a: 'b' });
   });
+
+  it('should freeze objects with "constructor" property', () => {
+    const anObject = { constructor: { a_prop: 'foo' } };
+
+    deepFreeze(anObject);
+
+    expect(changeExistingProperty(anObject.constructor, 'a_prop')).toThrow(TypeError);
+    expect(changeExistingProperty(anObject.constructor, 'a_prop')).toThrow('Cannot assign to read only property');
+  });
+
+  it('should freeze all non frozen props of a partially frozen object', () => {
+    const aPartiallyFrozenObject = {
+      levelOne: {},
+    };
+    Object.freeze(aPartiallyFrozenObject); // levelOne not frozen
+    aPartiallyFrozenObject.levelOne.a_prop = 'foo';
+    const anObject = { aPartiallyFrozenObject };
+
+    deepFreeze(anObject);
+
+    expect(addPropertyTo(anObject.aPartiallyFrozenObject.levelOne)).toThrow(TypeError);
+    expect(addPropertyTo(anObject.aPartiallyFrozenObject.levelOne)).toThrow('object is not extensible');
+    expect(changeExistingProperty(anObject.aPartiallyFrozenObject.levelOne, 'a_prop')).toThrow(TypeError);
+    expect(changeExistingProperty(anObject.aPartiallyFrozenObject.levelOne, 'a_prop')).toThrow('Cannot assign to read only property');
+  });
 });
 
 function changeExistingProperty(object, propertyName) {
   return () => {
+    // eslint-disable-next-line no-param-reassign
     object[propertyName] = 'a new value';
   };
 }
 
 function addPropertyTo(object) {
   return () => {
+    // eslint-disable-next-line no-param-reassign
     object.thisPropertyDoesNotExist = 'foo';
   };
 }
@@ -155,6 +180,7 @@ function addElementToArray(array) {
 
 function modifyFirstElementOf(array) {
   return () => {
+    // eslint-disable-next-line no-param-reassign
     array[0] = 'something new';
   };
 }

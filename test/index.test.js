@@ -6,6 +6,7 @@ describe('deepFreeze', () => {
     expect(deepFreeze('')).toEqual('');
     expect(deepFreeze(5)).toEqual(5);
     expect(deepFreeze(true)).toEqual(true);
+    expect(deepFreeze(null)).toEqual(null);
   });
 
   it('should shallow freeze objects', () => {
@@ -52,6 +53,19 @@ describe('deepFreeze', () => {
     expect(addElementToArray(anArray[0])).toThrow('object is not extensible');
     expect(modifyFirstElementOf(anArray[0])).toThrow(TypeError);
     expect(modifyFirstElementOf(anArray[0])).toThrow('Cannot assign to read only property');
+  });
+
+  it('should freeze objects and arrays with null elements', () => {
+    const anArray = [null];
+    const anObject = { prop: null };
+
+    deepFreeze(anArray);
+    deepFreeze(anObject);
+
+    expect(addElementToArray(anArray)).toThrow(TypeError);
+    expect(modifyFirstElementOf(anArray)).toThrow(TypeError);
+    expect(addPropertyTo(anObject)).toThrow(TypeError);
+    expect(changeExistingProperty(anObject, 'prop')).toThrow(TypeError);
   });
 
   it('should freeze objects three levels deep', () => {

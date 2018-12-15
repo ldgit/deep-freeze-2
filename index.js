@@ -1,5 +1,5 @@
 module.exports = function deepFreeze(object) {
-  if (typeof object !== 'object' && typeof object !== 'function') {
+  if (object === null || (typeof object !== 'object' && typeof object !== 'function')) {
     return object;
   }
 

@@ -1,0 +1,19 @@
+{
+  "name": "deep-freeze",
+  "version": "1.0.0",
+  "description": "Recursively freeze objects to ensure immutability when testing redux reducers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "immutability",
+    "unit",
+    "testing",
+    "deep-freeze",
+    "freeze",
+    "redux"
+  ],
+  "author": "Danko Lučić",
+  "license": "MIT"
+}

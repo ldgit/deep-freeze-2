@@ -7,7 +7,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint ./",
-    "test:all": "npm run lint && npm t"
+    "test:all": "npm run lint && npm t",
+    "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "keywords": [
     "immutability",
@@ -24,6 +25,7 @@
     "@babel/preset-env": "^7.2.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
+    "coveralls": "^3.0.2",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",

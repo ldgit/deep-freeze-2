@@ -4,11 +4,11 @@
   "description": "Recursively freeze objects to ensure immutability when testing redux reducers",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runTestsByPath",
     "test:watch": "jest --watch",
     "lint": "eslint ./ --ignore-path .gitignore",
     "test:all": "npm run lint && npm t",
-    "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls"
+    "coverage": "npm t -- --coverage"
   },
   "keywords": [
     "immutability",
@@ -27,7 +27,6 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "coveralls": "^3.0.5",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",

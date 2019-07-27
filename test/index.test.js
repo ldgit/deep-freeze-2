@@ -48,6 +48,22 @@ describe('deepFreeze', () => {
     );
   });
 
+  it('should freeze prototype', () => {
+    function Person(name) {
+      this.name = name;
+    }
+    Person.prototype.getName = function getName() {
+      return this.name;
+    };
+
+    deepFreeze(Person);
+
+    expect(changeExistingProperty(Person.prototype, 'getName')).toThrow(TypeError);
+    expect(changeExistingProperty(Person.prototype, 'getName')).toThrow(
+      'Cannot assign to read only property',
+    );
+  });
+
   it('should freeze arrays one level deep', () => {
     const anArray = [[4, 5]];
 
@@ -57,6 +73,26 @@ describe('deepFreeze', () => {
     expect(addElementToArray(anArray[0])).toThrow('object is not extensible');
     expect(modifyFirstElementOf(anArray[0])).toThrow(TypeError);
     expect(modifyFirstElementOf(anArray[0])).toThrow('Cannot assign to read only property');
+  });
+
+  it('should throw when deleting a property', () => {
+    const anObject = {
+      levelOne: { existingProp: 'just some prop' },
+    };
+
+    deepFreeze(anObject);
+
+    expect(() => delete anObject.levelOne).toThrow(TypeError);
+    expect(() => delete anObject.levelOne).toThrow("Cannot delete property 'levelOne' of");
+  });
+
+  it('should throw when deleting an array element', () => {
+    const anArray = [4, 5];
+
+    deepFreeze(anArray);
+
+    expect(() => delete anArray[0]).toThrow(TypeError);
+    expect(() => delete anArray[0]).toThrow("Cannot delete property '0' of");
   });
 
   it('should freeze objects and arrays with null elements', () => {

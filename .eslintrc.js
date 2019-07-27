@@ -1,14 +1,10 @@
 module.exports = {
-    'extends': 'airbnb-base',
-    'rules': {
-        'no-use-before-define': ['error', { 'functions': false, 'classes': true }],
-        'max-len': ['warn', 120, 2, {
-            'ignoreUrls': false,
-            'ignoreComments': false,
-        }],
-    },
-    'env': {
-        'jest': true,
-        'node': true,
-    }
+  extends: ['airbnb-base', 'prettier'],
+  rules: {
+    'no-use-before-define': ['error', { functions: false, classes: true }],
+  },
+  env: {
+    jest: true,
+    node: true,
+  },
 };

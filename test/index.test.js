@@ -17,7 +17,9 @@ describe('deepFreeze', () => {
     expect(addPropertyTo(anObject)).toThrow(TypeError);
     expect(addPropertyTo(anObject)).toThrow('object is not extensible');
     expect(changeExistingProperty(anObject, 'existingProp')).toThrow(TypeError);
-    expect(changeExistingProperty(anObject, 'existingProp')).toThrow('Cannot assign to read only property');
+    expect(changeExistingProperty(anObject, 'existingProp')).toThrow(
+      'Cannot assign to read only property',
+    );
   });
 
   it('should shallow freeze arrays', () => {
@@ -41,7 +43,9 @@ describe('deepFreeze', () => {
     expect(addPropertyTo(anObject.levelOne)).toThrow(TypeError);
     expect(addPropertyTo(anObject.levelOne)).toThrow('object is not extensible');
     expect(changeExistingProperty(anObject.levelOne, 'existingProp')).toThrow(TypeError);
-    expect(changeExistingProperty(anObject.levelOne, 'existingProp')).toThrow('Cannot assign to read only property');
+    expect(changeExistingProperty(anObject.levelOne, 'existingProp')).toThrow(
+      'Cannot assign to read only property',
+    );
   });
 
   it('should freeze arrays one level deep', () => {
@@ -80,19 +84,19 @@ describe('deepFreeze', () => {
     deepFreeze(anObject);
 
     expect(addPropertyTo(anObject.levelOne.levelTwo.levelThree)).toThrow(TypeError);
-    expect(addPropertyTo(anObject.levelOne.levelTwo.levelThree)).toThrow('object is not extensible');
-    expect(changeExistingProperty(anObject.levelOne.levelTwo.levelThree, 'existingProp')).toThrow(TypeError);
-    expect(changeExistingProperty(anObject.levelOne.levelTwo.levelThree, 'existingProp')).toThrow('Cannot assign to read only property');
+    expect(addPropertyTo(anObject.levelOne.levelTwo.levelThree)).toThrow(
+      'object is not extensible',
+    );
+    expect(changeExistingProperty(anObject.levelOne.levelTwo.levelThree, 'existingProp')).toThrow(
+      TypeError,
+    );
+    expect(changeExistingProperty(anObject.levelOne.levelTwo.levelThree, 'existingProp')).toThrow(
+      'Cannot assign to read only property',
+    );
   });
 
   it('should freeze arrays three levels deep', () => {
-    const anArray = [
-      [
-        [
-          [4, 5],
-        ],
-      ],
-    ];
+    const anArray = [[[[4, 5]]]];
 
     deepFreeze(anArray);
 
@@ -109,13 +113,17 @@ describe('deepFreeze', () => {
 
     deepFreeze(anObject.levelOne);
     expect(changeExistingProperty(anObject.levelOne, 'existingProp')).toThrow(TypeError);
-    expect(changeExistingProperty(anObject.levelOne, 'existingProp')).toThrow('Cannot assign to read only property');
+    expect(changeExistingProperty(anObject.levelOne, 'existingProp')).toThrow(
+      'Cannot assign to read only property',
+    );
 
     anObject.anotherLevelOneProp = { really: 'yes!' };
     deepFreeze(anObject);
 
     expect(changeExistingProperty(anObject.anotherLevelOneProp, 'really')).toThrow(TypeError);
-    expect(changeExistingProperty(anObject.anotherLevelOneProp, 'really')).toThrow('Cannot assign to read only property');
+    expect(changeExistingProperty(anObject.anotherLevelOneProp, 'really')).toThrow(
+      'Cannot assign to read only property',
+    );
   });
 
   it('repeated calls on same object should work', () => {
@@ -152,7 +160,9 @@ describe('deepFreeze', () => {
     deepFreeze(anObject);
 
     expect(changeExistingProperty(anObject.constructor, 'a_prop')).toThrow(TypeError);
-    expect(changeExistingProperty(anObject.constructor, 'a_prop')).toThrow('Cannot assign to read only property');
+    expect(changeExistingProperty(anObject.constructor, 'a_prop')).toThrow(
+      'Cannot assign to read only property',
+    );
   });
 
   it('should freeze all non frozen props of a partially frozen object', () => {
@@ -166,9 +176,15 @@ describe('deepFreeze', () => {
     deepFreeze(anObject);
 
     expect(addPropertyTo(anObject.aPartiallyFrozenObject.levelOne)).toThrow(TypeError);
-    expect(addPropertyTo(anObject.aPartiallyFrozenObject.levelOne)).toThrow('object is not extensible');
-    expect(changeExistingProperty(anObject.aPartiallyFrozenObject.levelOne, 'a_prop')).toThrow(TypeError);
-    expect(changeExistingProperty(anObject.aPartiallyFrozenObject.levelOne, 'a_prop')).toThrow('Cannot assign to read only property');
+    expect(addPropertyTo(anObject.aPartiallyFrozenObject.levelOne)).toThrow(
+      'object is not extensible',
+    );
+    expect(changeExistingProperty(anObject.aPartiallyFrozenObject.levelOne, 'a_prop')).toThrow(
+      TypeError,
+    );
+    expect(changeExistingProperty(anObject.aPartiallyFrozenObject.levelOne, 'a_prop')).toThrow(
+      'Cannot assign to read only property',
+    );
   });
 });
 

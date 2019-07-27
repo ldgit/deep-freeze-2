@@ -32,10 +32,17 @@
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
+    "husky": "^3.0.1",
     "jest": "^24.8.0",
     "prettier": "^1.18.2"
   },
   "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:all",
+      "pre-push": "npm run test:all"
+    }
+  },
   "prettier": {
     "arrowParens": "avoid",
     "bracketSpacing": true,

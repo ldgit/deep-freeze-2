@@ -1,5 +1,5 @@
 {
-  "name": "deep-freeze",
+  "name": "deep-freeze-2",
   "version": "1.0.0",
   "description": "Recursively freeze objects to ensure immutability when testing redux reducers",
   "main": "index.js",
@@ -26,14 +26,14 @@
     "url": "https://github.com/ldgit/deep-freeze-2"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "eslint": "^6.1.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-config-prettier": "^6.0.0",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-import": "^2.18.2",
-    "husky": "^3.0.1",
-    "jest": "^24.8.0",
+    "husky": "^3.0.5",
+    "jest": "^24.9.0",
     "prettier": "^1.18.2"
   },
   "dependencies": {},
